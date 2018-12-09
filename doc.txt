@@ -1,0 +1,7 @@
+npm install -g @angular/cli
+
+ng new nazwa apki
+
+ng serve Builds and serves your app, rebuilding on file changes.
+
+ng g component components/user
