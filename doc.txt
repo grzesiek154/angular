@@ -5,3 +5,7 @@ ng new nazwa apki
 ng serve Builds and serves your app, rebuilding on file changes.
 
 ng g component components/user
+
+
+Kazdy element w aplikacji jest odzielnym komponentem, jest to klasa z wlasciowsciami i metodamy
+
