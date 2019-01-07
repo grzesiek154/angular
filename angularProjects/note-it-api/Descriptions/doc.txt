@@ -1,0 +1,2 @@
+-@JsonIgnore and @JsonIgnoreProperties
+The purpose of @JsonIgnore and @JsonIgnoreProperties is to hide attributes from the Jackson parser by instructing it to ignore these fields.

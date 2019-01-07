@@ -1,0 +1,22 @@
+- "|"
+The word uppercase in the interpolation binding, right after the pipe operator ( | ), activates the built-in UppercasePipe.
+
+Pipes are a good way to format strings, currency amounts, dates and other display data. Angular ships with several built-in pipes and you can create your own.
+
+-ngModel
+aby uzywac ngModel musimy dodac w app.module.ts :
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+
+imports: [
+  BrowserModule,
+  FormsModule
+],
+
+-[hero]="selectedHero" is an Angular property binding.
+It's a one way data binding from the selectedHero property of the HeroesComponent to the hero property of the target element, which maps to the hero property of the HeroDetailComponent.
+Now when the user clicks a hero in the list, the selectedHero changes. When the selectedHero changes, the property binding updates hero and the HeroDetailComponent displays the new hero
+
+-@Injectable() services
+Notice that the new service imports the Angular Injectable symbol and annotates the class with the @Injectable() decorator. This marks the class as one that participates in the dependency injection system. The HeroService class is going to provide an injectable service, and it can also have its own injected dependencies. It doesn't have any dependencies yet, but it will soon.
+
+The @Injectable() decorator accepts a metadata object for the service, the same way the @Component() decorator did for your component classes.
