@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/notes")
 @CrossOrigin
 public class NoteController {
-
     private NoteRepository noteRepository;
     private NotebookRepository notebookRepository;
     private Mapper mapper;
@@ -35,25 +35,42 @@ public class NoteController {
     public List<NoteViewModel> all() {
         var notes = this.noteRepository.findAll();
 
-        //map from entity to view model
-        var notesVewModel = notes.stream().map(note -> this.mapper.convertToNoteViewModel(note)).collect(Collectors.toList());
+        // map from entity to view model
+        var notesViewModel = notes.stream()
+                .map(note -> this.mapper.convertToNoteViewModel(note))
+                .collect(Collectors.toList());
 
-        return notesVewModel;
+        return notesViewModel;
     }
 
-    @GetMapping("byId/{id}")
+    @GetMapping("/byId/{id}")
     public NoteViewModel byId(@PathVariable String id) {
-
         var note = this.noteRepository.findById(UUID.fromString(id)).orElse(null);
 
         if (note == null) {
-
             throw new EntityNotFoundException();
         }
 
         var noteViewModel = this.mapper.convertToNoteViewModel(note);
 
         return noteViewModel;
+    }
+
+    @GetMapping("/byNotebook/{notebookId}")
+    public List<NoteViewModel> byNotebook(@PathVariable String notebookId) {
+        List<Note> notes = new ArrayList<>();
+
+        var notebook = this.notebookRepository.findById(UUID.fromString(notebookId));
+        if (notebook.isPresent()) {
+            notes = this.noteRepository.findAllByNotebook(notebook.get());
+        }
+
+        // map to note view model
+        var notesViewModel = notes.stream()
+                .map(note -> this.mapper.convertToNoteViewModel(note))
+                .collect(Collectors.toList());
+
+        return notesViewModel;
     }
 
     @PostMapping
