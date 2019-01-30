@@ -1,0 +1,24 @@
+-What is a service
+class that can send functionality and data accross multiple components
+
+ng g s services/data --module=app.module
+
+-Observable
+to strumień z wartościami (z pojedynczą lub wieloma, dowolnego typu – np. stringami, liczbami, obiektami, tablicami), na który możesz nasłuchiwać i od którego w dowolnym momencie możesz się odłączyć.
+http://www.angular.love/2018/07/04/rxjs-w-angular-co-wypada-wiedziec/
+
+Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
+
+-Why write a service
+This example is so simple that it is tempting to write the Http.get() inside the component itself and skip the service.
+
+However, data access rarely stays this simple. You typically post-process the data, add error handling, and maybe some retry logic to cope with intermittent connectivity.
+
+The component quickly becomes cluttered with data access minutia. The component becomes harder to understand, harder to test, and the data access logic can't be re-used or standardized.
+
+That's why it is a best practice to separate presentation of data from data access by encapsulating data access in a separate service and delegating to that service in the component, even in simple cases like this one.
+
+-EventEmitter
+The child component exposes an EventEmitter property with which it emits events when something happens. The parent binds to that event property and reacts to those events.
+
+The child's EventEmitter property is an output property, typically adorned with an @Output decoration 

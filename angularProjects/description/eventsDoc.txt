@@ -1,0 +1,9 @@
+-Input and Output properties
+An Input property is a settable property annotated with an @Input decorator. Values flow into the property when it is data bound with a property binding
+
+An Output property is an observable property annotated with an @Output decorator. The property almost always returns an Angular EventEmitter. Values flow out of the component as events bound with an event binding.
+
+You can only bind to another component or directive through its Input and Output properties.
+
+-$event and user input dec
+https://angular.io/guide/user-input

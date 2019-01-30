@@ -1,0 +1,75 @@
+npm install -g @angular/cli
+
+ng new nazwa apki
+
+ng serve Builds and serves your app, rebuilding on file changes.
+
+ng g component components/user
+
+-components vs node_module
+Components control views (html). They also communicate with other components and services to bring functionality to your app.
+
+Modules consist of one or more components. They do not control any html. Your modules declare which components can be used by components belonging to other modules, which classes will be injected by the dependency injector and which component gets bootstrapped. Modules allow you to manage your components to bring modularity to your app.
+
+Kazdy element w aplikacji jest odzielnym komponentem, jest to klasa z wlasciowsciami i metodamy
+
+-ng g c components/users --spec=false - g od generate , c od component, komenta tworzy nowy komponent
+w podanej sciezce
+
+-ngOnInit
+A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. 
+Define an ngOnInit() method to handle any additional initialization tasks
+
+- String Interpolation
+The {{ }} contains JavaScript which is run by Angular and the output inserted in the HTML.
+So if we put {{ 1 + 1 }} in the template the number 2 would be inserted into the HTML.
+
+-?
+znak zapytania przy zeminnej sprawia ze nie jest ona opcjonalna
+
+-bootstrap
+npm install bootstrap@4.0.0-beta.2 jquery popper.js
+dodajemy w angular.json
+ sekcja styles : "../node_modules/bootstrap/disc/css/bootstrap.css"
+ sekcja script :
+              "../node_modules/jquery/dist/jquery.js",
+              "../node_modules/popper.js/dist/umd/popper.js",
+              "../node_modules/bootstrap/dist/js/bootstrap.js"
+
+
+-Binding class
+[class.bg-light]="user.isActive" oznacza ze jesli wartosc isActive jest true to zostanie dodana klasa "bg-light" do znacznia
+
+-NgClass
+Adds and removes CSS classes on an HTML element.
+
+-[]
+the brackets signifies binding from the component to the template such as property binding class
+
+-()
+parentheses is for whoops for events which bind for the template to the component
+
+-[()]
+to way data binding like ngModel
+
+-ngModel
+The FormControl instance tracks the value, user interaction, and validation status of the control and keeps the view synced with the model. If used within a parent form, the directive also registers itself with the form as a child control.
+
+This directive is used by itself or as part of a larger form. Use the ngModel selector to activate it.
+
+It accepts a domain model as an optional Input. If you have a one-way binding to ngModel with [] syntax, changing the value of the domain model in the component class sets the value in the view. If you have a two-way binding with [()] syntax (also known as 'banana-box syntax'), the value in the UI always syncs back to the domain model in your class.
+
+-@ViewChild
+Many times we can coordinate these multiple components and HTML elements directly in the template by using template references like #primaryInput or #primaryColorSample, without using the AppComponent class.
+But this is not always the case! Sometimes, the AppComponent might need references to the multiple elements that it contains inside its template, in order to mediate their interaction.
+If that's the case, then we can obtain references to those template elements and have them injected into the AppComponent class by querying the template: that's what @ViewChild is for.
+
+When are variables injected via @ViewChild available?
+The value of this injected member variable is not immediately available at component construction time!
+
+Angular will fill in this property automatically, but only later in the component lifecycle, after the view initialization is completed.
+
+-Routers
+router handles navigation from one component to another or one view form another
+mimics(naśladuje) loading separate pages via browser
+includes back button functionality
