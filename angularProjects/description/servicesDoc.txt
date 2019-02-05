@@ -1,5 +1,8 @@
 -What is a service
 class that can send functionality and data accross multiple components
+Angular services are @Injectable() classes.
+You can leverage Angular dependency resolution to use them in other components
+In Angular 6 new service crated from the CLI will be a singelton instance
 
 ng g s services/data --module=app.module
 
