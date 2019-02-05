@@ -7,3 +7,24 @@ You can only bind to another component or directive through its Input and Output
 
 -$event and user input dec
 https://angular.io/guide/user-input
+
+
+-subscribe(observer?: PartialObserver<T>): Subscription;
+-subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
+
+
+* The first way is creating an object that implements {@link Observer} interface. It should have methods
+   * defined by that interface, but note that it should be just a regular JavaScript object, which you can create
+   * yourself in any way you want (ES6 class, classic function constructor, object literal etc.). In particular do
+   * not attempt to use any RxJS implementation details to create Observers - you don't need them. Remember also
+   * that your object does not have to implement all methods. If you find yourself creating a method that doesn't
+   * do anything, you can simply omit it. Note however, if the `error` method is not provided, all errors will
+   * be left uncaught.
+   *
+   * The second way is to give up on Observer object altogether and simply provide callback functions in place of its methods.
+   * This means you can provide three functions as arguments to `subscribe`, where the first function is equivalent
+   * of a `next` method, the second of an `error` method and the third of a `complete` method. Just as in case of Observer,
+   * if you do not need to listen for something, you can omit a function, preferably by passing `undefined` or `null`,
+   * since `subscribe` recognizes these functions by where they were placed in function call. When it comes
+   * to `error` function, just as before, if not provided, errors emitted by an Observable will be thrown.
+   Note that a next() function could receive, for instance, message strings, or event objects, numeric values, or structures, depending on context. As a general term, we refer to data published by an observable as a stream. Any type of value can be represented with an observable, and the values are published as a stream.
