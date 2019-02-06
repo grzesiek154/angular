@@ -1,0 +1,5 @@
+Angular debuging
+
+- nalezy w intelij wybrac 'add configuration -> java script debuging'
+- nastepnie uruchomic aplikacje za pomoca npm start
+- oraz z intelij w aplikacji angularowej wybrac 'debug'
