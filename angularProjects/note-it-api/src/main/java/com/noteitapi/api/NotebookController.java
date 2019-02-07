@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/notebooks")
-@CrossOrigin
+@CrossOrigin(value = "http://localhost:4200")
 public class NotebookController {
     private NotebookRepository notebookRepository;
     private Mapper mapper;
