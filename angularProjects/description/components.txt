@@ -1,0 +1,5 @@
+Each component is the child of another component
+most components have a parent(except root)
+Components should be not to small or to big - it should do one functionality
+Logic shoud be put in SERVICES
+Components should be just classes that delegate logic and display info

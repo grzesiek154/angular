@@ -32,7 +32,7 @@ public class DbSeeder implements CommandLineRunner {
         var quotesNotebook = new Notebook("Quotes");
         this.notebookRepository.save(quotesNotebook);
 
-        // Sa8ve the welcome note
+        // Save the welcome note
         var note = new Note("Hello", "Welcome to Note It", defaultNotebook);
         this.noteRepository.save(note);
 

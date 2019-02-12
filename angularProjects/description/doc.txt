@@ -46,8 +46,29 @@ Adds and removes CSS classes on an HTML element.
 -[]
 the brackets signifies binding from the component to the template such as property binding class
 
+Property binding ( [property] )
+Write a template property binding to set a property of a view element. The binding sets the property to the value of a template expression.
+
+The most common property binding sets an element property to a component property value. An example is binding the src property of an image element to a component's heroImageUrl property:
+
+src/app/app.component.html
+content_copy
+<img [src]="heroImageUrl">
+Another example is disabling a button when the component says that it isUnchanged:
+
+src/app/app.component.html
+content_copy
+<button [disabled]="isUnchanged">Cancel is disabled</button>
+
+
+
+
 -()
 parentheses is for whoops for events which bind for the template to the component
+e.g
+<button (click)="onSave()">Save</button>
+Target event
+A name between parentheses — for example, (click) — identifies the target event. In the following example, the target is the button's click event. Click event po lewej, pochodzi z DOM.
 
 -[()]
 to way data binding like ngModel
