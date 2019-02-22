@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/Post';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-posts',
@@ -16,7 +19,12 @@ export class PostsComponent implements OnInit {
   }
   isEdit: boolean = false;
 
-  constructor(private postService: PostService) { }
+  constructor(
+    private postService: PostService,
+    private route: ActivatedRoute,
+    private location: Location
+    
+    ) { }
 
   ngOnInit() {  
     this.postService.getPosts().subscribe(posts => {

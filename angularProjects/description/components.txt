@@ -3,3 +3,17 @@ most components have a parent(except root)
 Components should be not to small or to big - it should do one functionality
 Logic shoud be put in SERVICES
 Components should be just classes that delegate logic and display info
+
+
+
+Comunication mechanizm between parent and child component:
+
+-@Input()
+data is shared from parent to child, not the other way aroun
+
+<app-note *ngFor="let note of notes" [note]="note"></app-note>
+
+@Input() note: Note;
+
+-@Output()
+children can share events using @Output()

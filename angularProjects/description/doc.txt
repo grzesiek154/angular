@@ -28,7 +28,7 @@ So if we put {{ 1 + 1 }} in the template the number 2 would be inserted into the
 znak zapytania przy zeminnej sprawia ze nie jest ona opcjonalna
 
 -bootstrap
-npm install bootstrap@4.0.0-beta.2 jquery popper.js
+npm install bootstrap jquery popper.js
 dodajemy w angular.json
  sekcja styles : "../node_modules/bootstrap/disc/css/bootstrap.css"
  sekcja script :
@@ -90,7 +90,8 @@ The value of this injected member variable is not immediately available at compo
 
 Angular will fill in this property automatically, but only later in the component lifecycle, after the view initialization is completed.
 
--Routers
-router handles navigation from one component to another or one view form another
-mimics(naśladuje) loading separate pages via browser
-includes back button functionality
+Property Binding
+   <input type="sybmit" value="Add Log" class="btn btn-light"
+    [disabled]="!this.text">
+    <button type="button"class="btn btn-warning" [hidden]=!this.text
+    >Clear</button>

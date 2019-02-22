@@ -1,0 +1,32 @@
+Using pipes
+A pipe takes in data as input and transforms it to a desired output. In this page, you'll use pipes to transform a component's birthday property into a human-friendly date.
+
+src/app/hero-birthday1.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-hero-birthday',
+  template: `<p>The hero's birthday is {{ birthday | date }}</p>`
+})
+export class HeroBirthdayComponent {
+  birthday = new Date(1988, 3, 15); // April 15, 1988
+}
+
+Focus on the component's template.
+
+src/app/app.component.html
+
+<p>The hero's birthday is {{ birthday | date }}</p>
+
+Built-in pipes
+Angular comes with a stock of pipes such as DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe. They are all available for use in any template.
+<p>The hero's birthday is {{ birthday | date:"MM/dd/yy" }} </p>
+
+This pipe definition reveals the following key points:
+
+A pipe is a class decorated with pipe metadata.
+The pipe class implements the PipeTransform interface's transform method that accepts an input value followed by optional parameters and returns the transformed value.
+There will be one additional argument to the transform method for each parameter passed to the pipe. Your pipe has one such parameter: the exponent.
+To tell Angular that this is a pipe, you apply the @Pipe decorator, which you import from the core Angular library.
+The @Pipe decorator allows you to define the pipe name that you'll use within template expressions. It must be a valid JavaScript identifier. Your pipe's name is exponentialStrength.
