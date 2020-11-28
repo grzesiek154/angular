@@ -15,7 +15,7 @@ export class StockStatisticsComponent implements OnInit {
 
   getComapnyData(): void {
     this.stockDataService.getCompanyAllData("Apple").subscribe(data => {
-      console.log(data);
+      console.log(data.quotes);
     });
   }
 

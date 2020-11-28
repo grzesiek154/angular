@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { observable, Observable, of } from 'rxjs';
+import { from, observable, Observable, of } from 'rxjs';
+import { CompanyData } from '../models/CompanyData';
 
 
 const httpOptions = {
@@ -22,10 +23,10 @@ export class StockDataService {
    baseUrl: string = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/";
   constructor(private http: HttpClient) {}
 
-  getCompanyAllData(comapnyName: string): Observable<string[]> {
+  getCompanyAllData(comapnyName: string): Observable<CompanyData> {
     const urlPath: string = "auto-complete?q=";
     const fullUrl = this.baseUrl + urlPath + comapnyName;
-    return this.http.get<string[]>(fullUrl, httpOptions);
+    return this.http.get<CompanyData>(fullUrl, httpOptions);
 }
    getCompanyStatisctiData(comapnyName: string): Observable<string[]> {
       const urlPath: string = "stock/v2/get-statistics?symbol=";
