@@ -1,10 +1,12 @@
-class CompanyData {
-  quotes: string[]
+import { ListedCompany } from '../models/ListedCompany';
+import { CompanyStatistics } from './CompanyStatistics';
 
+export class CompanyData {
 
-  getListedCompanyInfo(): ListedCompany {
+  quotes: ListedCompany[];
+  summaryDetail: string[][];
+   
 
-  }
 }
 
 

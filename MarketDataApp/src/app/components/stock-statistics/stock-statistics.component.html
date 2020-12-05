@@ -1,4 +1,19 @@
-<div class="main">
-  <button (click)="getComapnyData()">Get All Data</button>
-  <button (click)="getCompanyStatiscs()">Get Statiscis</button>
+<div class=".container-fluid">
+  <div class="row">
+     <div class="col-md-3">
+      <button class="btn btn-success" (click)="getComapnyData()">Get All Data</button>
+      <button class="btn btn-info" (click)="getComapnySymbol()">Get Company Symbol</button>
+     </div>
+     <div class="col-md-3">Listed Companies
+       <ul class="list-group" *ngIf="companySymbols && companySymbols.length > 0"></ul>
+       <li *ngFor="let symbol of companySymbols" class="list-group-item d-flex justify-content-between align-items-center">
+         <a (click)="getCompanyStatics(symbol)" href="#">
+         <span>{{ symbol }}</span>
+        </a>
+       </li>
+     </div>
+     <div class="col-md-3">
+       <span [hidden]=!this.selectedSymbol>Selected {{ selectedSymbol }}</span>
+     </div>
+  </div>
 </div>
