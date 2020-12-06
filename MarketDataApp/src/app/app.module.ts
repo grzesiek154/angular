@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { StockStatisticsComponent } from './components/stock-statistics/stock-statistics.component';
 import { StockFinancialsComponent } from './components/stock-financials/stock-financials.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CompanyMainComponent } from './components/company-main/company-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StockStatisticsComponent,
-    StockFinancialsComponent
+    StockFinancialsComponent,
+    CompanyMainComponent
   ],
   imports: [
     BrowserModule,
