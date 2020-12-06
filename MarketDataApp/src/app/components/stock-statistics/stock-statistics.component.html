@@ -1,43 +1,28 @@
-<div class=".container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <button class="btn btn-success" (click)="getComapnyData()">Get All Data</button>
-      <button class="btn btn-info" (click)="getComapnySymbol()">Get Company Symbol</button>
-    </div>
-    <div class="col-md-3">Listed Companies
-      <ul class="list-group" *ngIf="companySymbols && companySymbols.length > 0">
-        <li *ngFor="let symbol of companySymbols"
-          class="list-group-item d-flex justify-content-between align-items-center">
-          <a (click)="getCompanyStatics(symbol)" href="#">
-            <span>{{ symbol }}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-
-    <div class="col-md-3">
-      <span [hidden]=!this.selectedSymbol>Selected {{ selectedSymbol }}</span>
-      <ul class="list-group" >
-        <li *ngIf="companyStatistics.previousClose != null" class="list-group-item d-flex justify-content-between align-items-center">
-          Previous Close: {{ companyStatistics.previousClose }}
-        </li>
-        <li *ngIf="companyStatistics.regularMarketOpen != null" class="list-group-item d-flex justify-content-between align-items-center">
-          Market Open: {{ companyStatistics.regularMarketOpen }}
-        </li>
-        <li *ngIf="companyStatistics.trailingPE != null" class="list-group-item d-flex justify-content-between align-items-center">
-          Price/Earnings: {{ companyStatistics.trailingPE }}
-        </li>
-        <li *ngIf="companyStatistics.trailingEPS != null" class="list-group-item d-flex justify-content-between align-items-center">
-          EPS: {{ companyStatistics.trailingEPS }}
-        </li>
-        <li *ngIf="companyStatistics.regularMarketVolume != null" class="list-group-item d-flex justify-content-between align-items-center">
-          Market Vaolume: {{ companyStatistics.regularMarketVolume }}
-        </li>
-        <li *ngIf="companyStatistics.dividendRate != null" class="list-group-item d-flex justify-content-between align-items-center">
-          Dividend Rate: {{ companyStatistics.dividendRate }}
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+  
+      
+         <a (click)="getCompanyStatics(symbol)"   href="#">
+          <span>{{ symbol }}</span>
+        </a>
+      <!-- <div class="col-md-3">
+        <span [hidden]=!this.selectedSymbol>Selected {{ selectedSymbol }}</span>
+        <ul class="list-group" >
+          <li *ngIf="companyStatistics.previousClose != null" class="list-group-item d-flex justify-content-between align-items-center">
+            Previous Close: {{ companyStatistics.previousClose }}
+          </li>
+          <li *ngIf="companyStatistics.regularMarketOpen != null" class="list-group-item d-flex justify-content-between align-items-center">
+            Market Open: {{ companyStatistics.regularMarketOpen }}
+          </li>
+          <li *ngIf="companyStatistics.trailingPE != null" class="list-group-item d-flex justify-content-between align-items-center">
+            Price/Earnings: {{ companyStatistics.trailingPE }}
+          </li>
+          <li *ngIf="companyStatistics.trailingEPS != null" class="list-group-item d-flex justify-content-between align-items-center">
+            EPS: {{ companyStatistics.trailingEPS }}
+          </li>
+          <li *ngIf="companyStatistics.regularMarketVolume != null" class="list-group-item d-flex justify-content-between align-items-center">
+            Market Vaolume: {{ companyStatistics.regularMarketVolume }}
+          </li>
+          <li *ngIf="companyStatistics.dividendRate != null" class="list-group-item d-flex justify-content-between align-items-center">
+            Dividend Rate: {{ companyStatistics.dividendRate }}
+          </li>
+        </ul>
+      </div> -->
