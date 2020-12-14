@@ -7,7 +7,7 @@
         <ul class="list-group" *ngIf="companySymbols && companySymbols.length > 0">
           <li *ngFor="let symbol of companySymbols"
             class="list-group-item d-flex justify-content-between align-items-center">
-            <a (click)="selectedSymbol = symbol"   href="#">
+            <a (click)="announceSymbol()" href="#">
                 <span>{{ symbol }}</span>
               </a>
           </li>

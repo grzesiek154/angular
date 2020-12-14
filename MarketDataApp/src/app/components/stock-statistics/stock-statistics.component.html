@@ -1,8 +1,9 @@
   
       
-         <a (click)="getCompanyStatics(symbol)"   href="#">
-          <span>{{ symbol }}</span>
+         <a (click)="getFundamentalData()"   href="#">
+          <span>{{ currentSymbol }}</span>
         </a>
+        <button class="btn btn-info" (click)="getFundamentalData()">Get Fundamental Data</button>
       <!-- <div class="col-md-3">
         <span [hidden]=!this.selectedSymbol>Selected {{ selectedSymbol }}</span>
         <ul class="list-group" >

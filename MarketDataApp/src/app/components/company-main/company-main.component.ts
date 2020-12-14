@@ -6,7 +6,8 @@ import { StockDataService } from 'src/app/services/stock-data.service';
 @Component({
   selector: 'app-company-main',
   templateUrl: './company-main.component.html',
-  styleUrls: ['./company-main.component.css']
+  styleUrls: ['./company-main.component.css'],
+  providers: [StockDataService]
 })
 export class CompanyMainComponent implements OnInit {
   selectedSymbol: string;
@@ -14,8 +15,9 @@ export class CompanyMainComponent implements OnInit {
   companyStat: number[];
   companyStatistics: CompanyStatistics = new CompanyStatistics();
   companySymbols: string[] = [];
+  nextSymbol = 0;
 
-  constructor(private stockDataService: StockDataService) { }
+  constructor(private stockDataService: StockDataService){}
 
   ngOnInit(): void {
   }
@@ -28,6 +30,14 @@ export class CompanyMainComponent implements OnInit {
         console.log(this.listedCompany.symbol);
       });
     });
+  }
+
+  announceSymbol() {
+    // this.companySymbols.forEach(symbol => {
+    //   this.stockDataService.announce(symbol);
+    // });
+    const symbol = this.companySymbols[this.nextSymbol++];
+    this.stockDataService.announce(symbol);
   }
 
   // getCompanyStatics(symbol: string): void {
