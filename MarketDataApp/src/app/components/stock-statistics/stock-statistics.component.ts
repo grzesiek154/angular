@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { CompanyStatistics } from 'src/app/models/CompanyStatistics';
 import { StockDataService } from 'src/app/services/stock-data.service';
 
 
@@ -31,23 +32,24 @@ export class StockStatisticsComponent implements OnInit {
   }
   getFundamentalData(): void {
     this.stockDataService.getFundamentalStatisticsFromApi(this.currentSymbol).subscribe(data => {
-      this.mapRequestDataToTuple(data).forEach((key, val) => {
-        console.log("key: " + key, " val: " + val);
-      });
+      console.log("Previous Close " + this.mapRequestDataToTuple(data).previousClose); 
+      console.log("Regular Market Open " + this.mapRequestDataToTuple(data).regularMarketOpen); 
+      
     });
   }
-  private mapRequestDataToTuple(data): [string, number] {
-    type Tuple = [string, number];
-    let companyStat: Tuple;
+  private mapRequestDataToTuple(data): CompanyStatistics {
+    
+   let companyFundamentalStat = new CompanyStatistics();
 
-    companyStat = ['previousClose', data.summaryDetail['previousClose']['raw']];
-    companyStat.push('regularMarketOpen', data.summaryDetail['regularMarketOpen']['raw']);
-    companyStat.push('trailingPE', data.summaryDetail['trailingPE']['raw']);
-    companyStat.push('trailingEps', data['defaultKeyStatistics']['trailingEps']['raw']);
-    companyStat.push('regularMarketVolume', data.summaryDetail['regularMarketVolume']['raw']);
-    companyStat.push('dividendRate', data.summaryDetail['dividendRate']['raw']);
+    companyFundamentalStat.previousClose = data.summaryDetail['previousClose']['raw'];
+    companyFundamentalStat.regularMarketOpen = data.summaryDetail['regularMarketOpen']['raw'];
+    companyFundamentalStat.dividendRate = data.summaryDetail['dividendRate']['raw'];
+    companyFundamentalStat.regularMarketVolume = data.summaryDetail['regularMarketVolume']['raw'];
+    companyFundamentalStat.trailingEPS = data['defaultKeyStatistics']['trailingEps']['raw'];
+    companyFundamentalStat.trailingPE = (data.summaryDetail['trailingPE'] ? data.summaryDetail['trailingPE']['raw'] : "Not provided");
 
-    return companyStat;
+
+    return companyFundamentalStat;
   }
 
   ngOnDestroy() {
