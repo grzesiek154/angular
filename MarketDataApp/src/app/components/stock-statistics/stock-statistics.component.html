@@ -1,9 +1,12 @@
   
-      
-         <a (click)="getFundamentalData()"   href="#">
-          <span>{{ currentSymbol }}</span>
-        </a>
-        <button class="btn btn-info" (click)="getFundamentalData()">Get Fundamental Data</button>
+        
+         <div class="row">
+           <span [hidden]="!currentSymbol">You have selected : {{ currentSymbol }}</span>
+          </div>
+        <div class="row">
+          <button class="btn btn-info" (click)="getFundamentalData()" [hidden]="!currentSymbol">Get Fundamental Data</button>
+        </div>
+        
       <!-- <div class="col-md-3">
         <span [hidden]=!this.selectedSymbol>Selected {{ selectedSymbol }}</span>
         <ul class="list-group" >

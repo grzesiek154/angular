@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ListedCompany } from '../../models/ListedCompany';
-import { CompanyStatistics } from '../../models/CompanyStatistics';
 import { StockDataService } from 'src/app/services/stock-data.service';
 
 @Component({
@@ -13,7 +12,6 @@ export class CompanyMainComponent implements OnInit {
   selectedSymbol: string;
   listedCompany: ListedCompany;
   companyStat: number[];
-  companyStatistics: CompanyStatistics = new CompanyStatistics();
   companySymbols: string[] = [];
   nextSymbol = 0;
 
@@ -23,7 +21,7 @@ export class CompanyMainComponent implements OnInit {
   }
 
   getComapnySymbols() {
-    this.stockDataService.getCompanyAllData("Apple").subscribe(data => {
+    this.stockDataService.getAllListedCompanies("Apple").subscribe(data => {
       data.quotes.forEach(data => {
         this.listedCompany = data;
         this.companySymbols.push(this.listedCompany.symbol);
@@ -32,23 +30,9 @@ export class CompanyMainComponent implements OnInit {
     });
   }
 
-  announceSymbol() {
-    // this.companySymbols.forEach(symbol => {
-    //   this.stockDataService.announce(symbol);
-    // });
-    const symbol = this.companySymbols[this.nextSymbol++];
-    this.stockDataService.announce(symbol);
+  announceSymbol(symbol) {
+    const symbolToAnnounce = symbol;
+    this.stockDataService.announce(symbolToAnnounce);
   }
 
-  // getCompanyStatics(symbol: string): void {
-  //   this.stockDataService.getCompanyStatisctiData(symbol).subscribe(data => {
-  //     this.companyStat.push(this.companyStatistics.previousClose = data.summaryDetail['previousClose']['raw']);
-  //     this.companyStat.push(this.companyStatistics.regularMarketOpen = data.summaryDetail['regularMarketOpen']['raw']);
-  //     this.companyStat.push(this.companyStatistics.trailingPE = data.summaryDetail['trailingPE']['raw']);
-  //     this.companyStat.push(this.companyStatistics.trailingEPS = data['defaultKeyStatistics']['trailingEps']['raw']);
-  //     this.companyStat.push(this.companyStatistics.regularMarketVolume = data.summaryDetail['regularMarketVolume']['raw']);
-  //     this.companyStat.push(this.companyStatistics.dividendRate = data.summaryDetail['dividendRate']['raw']);
-  //     // this.companyStatistics.previousClose = data
-  //   });
-  // }
 }
