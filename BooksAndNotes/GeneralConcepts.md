@@ -90,3 +90,63 @@ Calls of the next are the most common as they actually deliver the data  to it�
 **Because observable execution can run for an infinite amount of time, we need a  way to stop it from executing. Since each execution is run for every  subscriber it’s important to not keep subscriptions open for subscribers that don’t need data anymore, as that would mean a waste of memory and  computing power.
 
 When you subscribe to an observable, you get back a subscription, which represents the ongoing execution. Just call `unsubscribe()`to cancel the execution.
+
+# Pipes
+
+“A pipe is a way to write display-value transformations that you can  declare in your HTML. It takes in data as input and transforms it to a  desired output”.
+
+https://itnext.io/understanding-angular-pipes-5d1154f57d4f
+
+# Routing
+
+links:
+
+https://medium.com/angular-in-depth/the-three-pillars-of-angular-routing-angular-router-series-introduction-fb34e4e8758e
+
+The core focus of the router is to enable navigation among routable  components within an Angular application, which requires the router to **render a set of components using an outlet on the page, and then reflect the rendered state in the url.** In order to do this, the router needs some way to associate urls with the  appropriate set of components to load. It accomplishes this by letting a developer define a router state configuration object, which describes  which components to display for a given url.
+
+```javascript
+import { RouterModule, Route } from '@angular/router';
+
+const ROUTES: Route[] = [
+  { path: 'home', component: HomeComponent },
+  { path: 'notes',
+    children: [
+      { path: '', component: NotesComponent },
+      { path: ':id', component: NoteComponent }
+    ]
+  },
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(ROUTES)
+  ]
+})
+```
+
+It will produce the following tree of router states when passed into `routerModule.forRoot()` :
+
+<img src="https://miro.medium.com/max/1386/1*_ySB8CTLi45dBvUj8Sqxgg.png" alt="Image for post" style="zoom: 50%;" />
+
+An important point is that at any time, some router state (i.e.  arrangement of components) is being displayed on screen to the user,  based on the current url. This arrangement is known as the active route. **An active route is just some subtree of the tree of all router states**. For instance, the url `/notes` would be represented as the following active route:
+
+<img src="https://miro.medium.com/max/1366/1*WBnoxr-Hd6LacI4mltwcFg.png" alt="Image for post" style="zoom:50%;" />
+
+1. The RouterModule has a `forChild` method, which also accepts an array of Routes. While both `forChild` and `forRoot` return modules containing all of the router directives and route configurations, `forRoot` also creates an instance of the Router service. [**Since  the Router service mutates the browser location, which is a shared  global resource, there can be only one active Router service**.](https://blog.angularindepth.com/avoiding-common-confusions-with-modules-in-angular-ada070e6891f) This is why you should use `forRoot` only once in your application, in the root app module. Feature modules should use `forChild`.
+
+2. When a route’s path is matched, the components referenced inside of the router state’s `component` properties are rendered using router-[*outlets*](https://angular.io/api/router/RouterOutlet)*,* which are dynamic elements that display an activated component. Technically, the components will be rendered as a *sibling* to the router outlet directive, not inside of it. Router outlets can  also be nested within one another, forming parent/child route  relationships.
+
+At any given point in time, **the URL represents a serialized version of the application’s currently activated router state**. Changes in the router state will change the URL, and changes in the URL will change the router state. They are both representations of the same thing.
+
+<img src="https://miro.medium.com/max/1380/1*PTDVdMLfL8nihVgm2X0NgQ.png" alt="Image for post" style="zoom:50%;" />
+
+During this **navigation cycle, the router emits a series of events**. The Router service provides an observable for listening to router  events, which can be used to define logic, such as running a loading  animation, as well as aiding in debugging routing. Some noteworthy  events during this cycle are:
+
+`NavigationStart:` Represents the start of a navigation cycle.
+
+ `NavigationCancel:` For instance, a guard refuses to navigate to a route. 
+
+`RoutesRecognized:` When a url has been matched to a route. 
+
+NavigationEnd: Triggered when navigation ends successfully.
