@@ -33,6 +33,8 @@ The server's data API determines the shape of the JSON data. The *Tour of Heroes
 
 # Observable
 
+Observables are lazy collections of multiple values over time.
+
 1. **Observables are lazy**
    You could think of lazy observables as newsletters. For each subscriber a  new newsletter is created. They are then only send to those people, and  not to anyone else.
 
@@ -90,6 +92,121 @@ Calls of the next are the most common as they actually deliver the data  to it�
 **Because observable execution can run for an infinite amount of time, we need a  way to stop it from executing. Since each execution is run for every  subscriber it’s important to not keep subscriptions open for subscribers that don’t need data anymore, as that would mean a waste of memory and  computing power.
 
 When you subscribe to an observable, you get back a subscription, which represents the ongoing execution. Just call `unsubscribe()`to cancel the execution.
+
+# Subjects
+
+A Subject is like an Observable. It can be subscribed to, just like you normally would with Observables. It also has methods like `next()`, `error()` and `complete()` just like the observer you normally pass to your Observable creation function.
+
+The main reason to use Subjects is to multicast. An Observable by default  is unicast. Unicasting means that each subscribed observer owns an  independent execution of the Observable. To demonstrate this:
+
+```javascript
+import * as Rx from "rxjs";
+
+const observable = Rx.Observable.create((observer) => {
+    observer.next(Math.random());
+});
+
+// subscription 1
+observable.subscribe((data) => {
+  console.log(data); // 0.24957144215097515 (random number)
+});
+
+// subscription 2
+observable.subscribe((data) => {
+   console.log(data); // 0.004617340049055896 (random number)
+});
+```
+
+Multicasting basically means that one Observable execution is shared among multiple subscribers.
+
+Subjects are like EventEmitters, they maintain a registry of many listeners. When calling subscribe on a Subject it does not invoke a new execution  that delivers data. It simply registers the given Observer in a list of  Observers
+
+Whereas Observables are solely data producers, Subjects can both be used as a  data producer and a data consumer. By using Subjects as a data consumer  you can use them to convert Observables from unicast to multicast.  Here’s a demonstration of that:
+
+```typescript
+import * as Rx from "rxjs";
+
+const observable = Rx.Observable.create((observer) => {
+    observer.next(Math.random());
+});
+
+const subject = new Rx.Subject();
+
+// subscriber 1
+subject.subscribe((data) => {
+    console.log(data); // 0.24957144215097515 (random number)
+});
+
+// subscriber 2
+subject.subscribe((data) => {
+    console.log(data); // 0.24957144215097515 (random number)
+});
+
+observable.subscribe(subject);
+```
+
+
+
+# The BehaviorSubject
+
+https://medium.com/@luukgruijs/understanding-rxjs-behaviorsubject-replaysubject-and-asyncsubject-8cc061f1cfc0
+
+The BehaviorSubject has the characteristic that it stores the “current”  value. This means that you can always directly get the last emitted  value from the BehaviorSubject.
+
+```typescript
+import * as Rx from "rxjs";
+
+const subject = new Rx.BehaviorSubject();
+
+// subscriber 1
+subject.subscribe((data) => {
+    console.log('Subscriber A:', data);
+});
+
+subject.next(Math.random());
+subject.next(Math.random());
+
+// subscriber 2
+subject.subscribe((data) => {
+    console.log('Subscriber B:', data);
+});
+
+subject.next(Math.random());
+
+console.log(subject.value)
+
+// output
+// Subscriber A: 0.24957144215097515
+// Subscriber A: 0.8751123892486292
+// Subscriber B: 0.8751123892486292
+// Subscriber A: 0.1901322109907977
+// Subscriber B: 0.1901322109907977
+// 0.1901322109907977
+```
+
+There are a few things happening here:
+
+1. We first create a subject and subscribe to that with Subscriber A. The  Subject then emits it’s value and Subscriber A will log the random  number.
+2. The subject emits it’s next value. Subscriber A will log this again
+3. Subscriber B starts with subscribing to the subject. Since the subject is a  BehaviorSubject the new subscriber will automatically receive the last  stored value and log this.
+4. The subject emits a new value again. Now both subscribers will receive the values and log them.
+5. Last we log the current Subjects value by simply accessing the `.value` property. This is quite nice as it’s synchronous. You don’t have to call subscribe to get the value.
+
+Last but not least, you can create BehaviorSubjects with a start value.  When creating Observables this can be quite hard. With BehaviorSubjects  this is as easy as passing along an initial value. See the example  below:
+
+```typescript
+import * as Rx from "rxjs";
+
+const subject = new Rx.BehaviorSubject(Math.random());
+
+// subscriber 1
+subject.subscribe((data) => {
+    console.log('Subscriber A:', data);
+});
+
+// output
+// Subscriber A: 0.24957144215097515
+```
 
 # Pipes
 
